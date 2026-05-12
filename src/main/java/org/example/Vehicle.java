@@ -1,15 +1,19 @@
 package org.example;
 
 public class Vehicle extends Asset {
+
     private String makeModel;
     private int year;
     private int odometer;
 
-    public Vehicle(double originalCost, String dateAcquired, String description, int odometer, int year, String makeModel) {
-        super(originalCost, dateAcquired, description);
-        this.odometer = odometer;
-        this.year = year;
+    public Vehicle(String description, String dateAcquired, double originalCost,
+                   String makeModel, int year, int odometer) {
+
+        super(description, dateAcquired, originalCost);
+
         this.makeModel = makeModel;
+        this.year = year;
+        this.odometer = odometer;
     }
 
     public String getMakeModel() {
@@ -38,26 +42,24 @@ public class Vehicle extends Asset {
 
     @Override
     public double getValue() {
+
         int currentYear = java.time.Year.now().getValue();
         int age = currentYear - year;
+
         double value = getOriginalCost();
 
         if (age <= 3) {
             value -= value * (0.03 * age);
-
         } else if (age <= 6) {
             value -= value * (0.06 * age);
-
         } else if (age <= 10) {
             value -= value * (0.08 * age);
-
         } else {
             value = 1000;
         }
 
         if (odometer > 100000 &&
-                !(makeModel.contains("Honda") ||
-                        makeModel.contains("Toyota"))) {
+                !(makeModel.contains("Honda") || makeModel.contains("Toyota"))) {
             value *= 0.75;
         }
 
