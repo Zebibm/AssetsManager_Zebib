@@ -42,7 +42,7 @@ public class Main {
 
             String details = "";
 
-            // HOUSE → no color change here (kept simple)
+            // HOUSE
             if (asset instanceof House house) {
                 details = "Address: " + house.getAddress();
 
